@@ -71,20 +71,31 @@ jobs:
             exit 0
           fi
 
-          # 変更したお知らせ・求人のページ
+          # 変更したお知らせ・求人のページ（非公開にしたものは、表示されないことを書く）
           git fetch --quiet origin main
           PAGES=""
           for f in $(git diff --name-only origin/main...HEAD -- content/news content/jobs); do
             case "$f" in
-              content/news/*.md) PAGES="$PAGES"$'\n'"- お知らせ: ${PAGE_URL}news/$(basename "$f" .md).html" ;;
-              content/jobs/*.md) PAGES="$PAGES"$'\n'"- 求人: ${PAGE_URL}jobs/$(basename "$f" .md).html" ;;
+              content/news/*.md) KIND="お知らせ"; DIR="news" ;;
+              content/jobs/*.md) KIND="求人"; DIR="jobs" ;;
+              *) continue ;;
             esac
+            NAME="$(basename "$f" .md)"
+            TITLE=""
+            if [ -f "$f" ]; then TITLE="$(sed -n 's/^title:[[:space:]]*//p' "$f" | head -n 1)"; fi
+            LABEL="${KIND}${TITLE:+『$TITLE』}"
+            if [ -f "dist/$DIR/$NAME.html" ]; then
+              PAGES="$PAGES"$'\n'"- ${LABEL}: ${PAGE_URL}${DIR}/${NAME}.html"
+            else
+              PAGES="$PAGES"$'\n'"- ${LABEL}: 非公開（または掲載終了）のため表示されません。一覧から消えていれば正しい状態です"
+            fi
           done
 
           {
             echo "### 確認用ページを更新しました"
             echo ""
             echo "- トップページ: ${PAGE_URL}"
+            echo "- お知らせ一覧: ${PAGE_URL}news/index.html"
             if [ -n "$PAGES" ]; then echo "${PAGES#$'\n'}"; fi
             echo ""
             echo "表示が変わっていなければ、ページを再読み込みしてください（反映に1分ほどかかることがあります）。"
