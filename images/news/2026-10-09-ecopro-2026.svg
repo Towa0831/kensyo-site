@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3f8f5"/>
+      <stop offset="1" stop-color="#e6f1ed"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#wall)"/>
+  <rect y="720" width="1600" height="180" fill="#d9e3dd"/>
+  <rect y="715" width="1600" height="10" fill="#c5d3cb"/>
+  <!-- back panels -->
+  <rect x="300" y="170" width="440" height="380" rx="16" fill="#ffffff"/>
+  <rect x="330" y="200" width="380" height="150" rx="10" fill="#1f6f5c"/>
+  <circle cx="400" cy="275" r="40" fill="#e6f1ed"/>
+  <rect x="470" y="245" width="200" height="16" rx="8" fill="#e6f1ed"/>
+  <rect x="470" y="283" width="140" height="16" rx="8" fill="#a9cfc3"/>
+  <rect x="330" y="380" width="170" height="130" rx="10" fill="#e6f1ed"/>
+  <rect x="530" y="380" width="180" height="130" rx="10" fill="#f1d9a0"/>
+  <rect x="880" y="170" width="440" height="380" rx="16" fill="#ffffff"/>
+  <rect x="910" y="200" width="380" height="150" rx="10" fill="#e6f1ed"/>
+  <path d="M1000 330 L1060 230 L1120 330 Z" fill="#1f6f5c"/>
+  <path d="M1080 330 L1150 250 L1220 330 Z" fill="#154d40"/>
+  <rect x="910" y="380" width="380" height="24" rx="12" fill="#a9cfc3"/>
+  <rect x="910" y="424" width="260" height="24" rx="12" fill="#a9cfc3"/>
+  <rect x="910" y="468" width="320" height="24" rx="12" fill="#f1d9a0"/>
+  <!-- counter -->
+  <rect x="520" y="590" width="560" height="140" rx="12" fill="#1f6f5c"/>
+  <rect x="500" y="570" width="600" height="30" rx="10" fill="#154d40"/>
+  <!-- plant -->
+  <rect x="1380" y="620" width="80" height="100" rx="10" fill="#c98f5b"/>
+  <ellipse cx="1405" cy="560" rx="34" ry="80" fill="#2f8a73" transform="rotate(-20 1405 560)"/>
+  <ellipse cx="1440" cy="550" rx="34" ry="86" fill="#1f6f5c" transform="rotate(18 1440 550)"/>
+  <ellipse cx="1420" cy="530" rx="28" ry="80" fill="#4aa58c"/>
+  <!-- staff 1 -->
+  <circle cx="440" cy="470" r="44" fill="#f0c8a0"/>
+  <path d="M440 426 a44 44 0 0 1 44 40 q-44 -10 -88 0 a44 44 0 0 1 44 -40z" fill="#3a2e2a"/>
+  <path d="M380 740 q0 -200 60 -200 q60 0 60 200z" fill="#2f8a73"/>
+  <!-- staff 2 -->
+  <circle cx="1160" cy="470" r="44" fill="#e8b88c"/>
+  <path d="M1116 470 a44 44 0 0 1 88 0 q-10 -30 -44 -30 q-34 0 -44 30z" fill="#22262a"/>
+  <path d="M1100 740 q0 -200 60 -200 q60 0 60 200z" fill="#2f8a73"/>
+  <!-- visitor -->
+  <circle cx="800" cy="500" r="48" fill="#f0c8a0"/>
+  <path d="M752 500 a48 48 0 0 1 96 0 q-20 -26 -48 -26 q-28 0 -48 26z" fill="#6b4a32"/>
+  <path d="M730 740 q0 -210 70 -210 q70 0 70 210z" fill="#e2a43b"/>
+  <rect x="520" y="590" width="560" height="14" fill="#154d40"/>
+</svg>
