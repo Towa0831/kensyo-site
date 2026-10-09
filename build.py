@@ -21,6 +21,7 @@ import re
 import shutil
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -44,6 +45,14 @@ VALID_STATUSES = {STATUS_PUBLISHED, STATUS_DRAFT, STATUS_HIDDEN}
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 BODY_IMAGE_RE = re.compile(r"!\[[^\]]*\]\((images/[^)\s]+)")
 FRONT_MATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*(?:\n(.*))?\Z", re.S)
+
+# Claude が描くイラスト（SVG）の安全チェック
+SVG_MAX_BYTES = 500 * 1024
+SVG_FORBIDDEN_TAGS = {
+    "script", "foreignObject", "iframe", "embed", "object", "image", "a",
+    "animate", "animateMotion", "animateTransform", "set", "audio", "video",
+}
+SVG_EXTERNAL_URL_RE = re.compile(r"url\(\s*['\"]?(?!#)|@import", re.I)
 
 NEWS_FIELDS = {"title", "date", "status", "category", "summary", "image", "image_alt", "end_date"}
 NEWS_CATEGORIES = ["お知らせ", "休業案内", "イベント", "メディア掲載", "採用"]
@@ -255,6 +264,46 @@ def load_site() -> tuple[dict, list[str]]:
     return site, errors
 
 
+def check_svg(path: Path) -> list[str]:
+    """SVG がホームページに載せても安全で、正しく表示できる形かを確かめる。問題があれば理由の一覧を返す。"""
+    errors: list[str] = []
+    data = path.read_bytes()
+    if len(data) > SVG_MAX_BYTES:
+        errors.append(f"ファイルが大きすぎます（{len(data) // 1024}KB）。{SVG_MAX_BYTES // 1024}KB 以下にしてください。")
+    text = data.decode("utf-8", errors="replace")
+    if re.search(r"<!DOCTYPE|<!ENTITY", text, re.I):
+        errors.append("<!DOCTYPE> や <!ENTITY> は使えません。")
+        return errors
+    try:
+        root = ET.fromstring(data)
+    except ET.ParseError as exc:
+        errors.append(f"SVGの書き方に誤りがあります（{exc}）。")
+        return errors
+
+    def local(name: str) -> str:
+        return name.rsplit("}", 1)[-1]
+
+    if local(root.tag) != "svg":
+        errors.append("いちばん外側が <svg> ではありません。")
+    if not root.get("viewBox"):
+        errors.append("<svg> に viewBox がありません（例: viewBox=\"0 0 1600 900\"）。")
+    for el in root.iter():
+        tag = local(el.tag)
+        if tag in SVG_FORBIDDEN_TAGS:
+            errors.append(f"<{tag}> は使えません。図形（rect、circle、ellipse、path など）だけで描いてください。")
+        if tag == "style" and el.text and SVG_EXTERNAL_URL_RE.search(el.text):
+            errors.append("<style> の中で外部のファイルを読み込むことはできません。")
+        for raw_name, value in el.attrib.items():
+            name = local(raw_name)
+            if name.lower().startswith("on"):
+                errors.append(f"{name} 属性（動きをつける仕組み）は使えません。")
+            elif name == "href" and not value.startswith("#"):
+                errors.append(f"href には同じSVGの中の部品（#名前）だけを指定できます（今は「{value[:40]}」）。")
+            elif "javascript:" in value.lower() or (name == "style" and SVG_EXTERNAL_URL_RE.search(value)):
+                errors.append(f"{name} 属性に使えない内容が含まれています。")
+    return sorted(set(errors), key=errors.index)
+
+
 def collect(kind: str, today: dt.date) -> list[Entry]:
     folder = CONTENT_DIR / kind
     entries = []
@@ -308,6 +357,10 @@ def main() -> int:
             print(f"[エラー] {entry.label}: {message}")
         for message in entry.warnings:
             print(f"[注意]   {entry.label}: {message}")
+    for svg in sorted((ROOT / "images").rglob("*.svg")):
+        for message in check_svg(svg):
+            has_error = True
+            print(f"[エラー] {svg.relative_to(ROOT)}: {message}")
     if has_error:
         print("\nエラーがあるため、ページを生成しませんでした。上の内容を直してください。")
         return 1
