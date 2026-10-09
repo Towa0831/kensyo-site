@@ -3,9 +3,9 @@
    色を変えたいときは、下の :root の値だけを書き換えてください。
    ========================================================= */
 :root {
-  --color-accent: #1f6f5c;       /* メインの色（ボタン、見出しの線など） */
-  --color-accent-dark: #154d40;  /* メインの色の濃い版 */
-  --color-accent-soft: #e6f1ed;  /* メインの色の薄い版（背景） */
+  --color-accent: #2f5f8f;       /* メインの色（ボタン、見出しの線など） */
+  --color-accent-dark: #1f4468;  /* メインの色の濃い版 */
+  --color-accent-soft: #e8eff6;  /* メインの色の薄い版（背景） */
   --color-text: #22262a;
   --color-muted: #5f666d;
   --color-line: #dde1e3;
