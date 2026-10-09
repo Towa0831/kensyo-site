@@ -45,7 +45,7 @@ jobs:
           cache: pip
 
       - name: サイト生成・画像処理に必要な部品をインストールする
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt playwright
 
       - name: Issueに貼られた画像をダウンロードする
         continue-on-error: true
@@ -67,7 +67,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: |
-            --allowedTools "Bash(python build.py:*),Bash(python tools/prepare_image.py:*),Bash(cp:*),Bash(mkdir:*),Bash(ls:*),Bash(git log:*),Bash(git show:*),Bash(git diff:*),Bash(git restore:*),Bash(git tag:*),Bash(git fetch:*)"
+            --allowedTools "Bash(python build.py:*),Bash(python tools/prepare_image.py:*),Bash(python tools/screenshot.py:*),Bash(cp:*),Bash(mkdir:*),Bash(ls:*),Bash(git log:*),Bash(git show:*),Bash(git diff:*),Bash(git restore:*),Bash(git tag:*),Bash(git fetch:*)"
             --add-dir /tmp/issue-images
             --add-dir /tmp/github-images
 
