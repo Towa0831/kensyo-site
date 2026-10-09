@@ -1,12 +1,11 @@
 name: 確認用ページを更新
 
-# main 以外のブランチ（Claudeが作った下書き）に保存されたら、
-# 確認用ページを GitHub Pages に公開し、そのURLをIssue（公開申請があればそちら）にコメントします。
-# 確認用ページは1つだけです。最後に保存された下書きの内容が表示されます。
+# Claudeが下書きを保存したら、Claudeの処理（claude.yml）から呼び出されます。
+# 下書きの内容で確認用ページを作って GitHub Pages に公開し、
+# そのURLをIssue（公開申請があればそちら）にコメントします。
+# 確認用ページは1つだけです。最後に作った下書きの内容が表示されます。
+# Actions タブの「Run workflow」で、下書き（ブランチ）を選んで手動でも動かせます。
 on:
-  push:
-    branches-ignore:
-      - main
   workflow_dispatch:
 
 permissions:
