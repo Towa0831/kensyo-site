@@ -49,4 +49,4 @@ Issueの内容から戻す対象と時点を判断し、候補を表にして見
 
 1. GitHubの「Pull requests」タブで、問題の内容を公開したときの公開申請（Closed の中にある）を開く
 2. 一番下の「Revert」ボタンを押すと、取り消し用の公開申請ができる
-3. その公開申請で「Merge pull request」→「Confirm merge」を押すと、2〜3分で本番が元に戻る
+3. その公開申請で「Squash and merge」→「Confirm squash and merge」を押すと、2〜3分で本番が元に戻る
