@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import html
 import re
 import shutil
@@ -349,7 +350,10 @@ def main() -> int:
         if src.exists():
             shutil.copytree(src, out_dir / name, ignore=shutil.ignore_patterns(".gitkeep", ".DS_Store"))
 
-    common = {"site": site, "preview": preview, "today": today, "job_fields": JOB_FIELDS}
+    # CSSを変えたら、ブラウザが古いCSSを使い続けないよう、読み込むURLに中身から作った番号を付ける
+    css_file = ROOT / "assets" / "css" / "style.css"
+    css_version = hashlib.sha256(css_file.read_bytes()).hexdigest()[:10] if css_file.is_file() else "0"
+    common = {"site": site, "preview": preview, "today": today, "job_fields": JOB_FIELDS, "css_version": css_version}
 
     def write(rel_path: str, template: str, **context) -> None:
         depth = rel_path.count("/")
