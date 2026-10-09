@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfe8f3"/>
+      <stop offset="1" stop-color="#eaf5f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#f3ead8"/>
+  <rect x="0" y="0" width="1600" height="640" fill="#efe6d2"/>
+  <!-- window -->
+  <rect x="330" y="110" width="940" height="400" rx="12" fill="#ffffff"/>
+  <rect x="350" y="130" width="900" height="360" fill="url(#sky)"/>
+  <rect x="400" y="340" width="90" height="150" fill="#9fb9b0"/>
+  <rect x="510" y="270" width="110" height="220" fill="#b7cfc6"/>
+  <rect x="640" y="360" width="80" height="130" fill="#8fb0a4"/>
+  <rect x="880" y="300" width="100" height="190" fill="#a9c6bb"/>
+  <rect x="1000" y="380" width="120" height="110" fill="#9fb9b0"/>
+  <rect x="1140" y="320" width="80" height="170" fill="#b7cfc6"/>
+  <circle cx="1130" cy="200" r="40" fill="#f6e4a8"/>
+  <rect x="795" y="130" width="10" height="360" fill="#ffffff"/>
+  <!-- floor -->
+  <rect x="0" y="640" width="1600" height="260" fill="#d9cdb4"/>
+  <!-- table -->
+  <rect x="300" y="620" width="1000" height="40" rx="8" fill="#a97c50"/>
+  <rect x="360" y="660" width="30" height="180" fill="#8a6440"/>
+  <rect x="1210" y="660" width="30" height="180" fill="#8a6440"/>
+  <!-- documents -->
+  <rect x="560" y="596" width="130" height="26" fill="#ffffff"/>
+  <rect x="580" y="582" width="130" height="20" fill="#e6f1ed"/>
+  <!-- plant -->
+  <rect x="1030" y="570" width="50" height="52" rx="6" fill="#c9694a"/>
+  <ellipse cx="1040" cy="540" rx="18" ry="40" fill="#1f6f5c"/>
+  <ellipse cx="1070" cy="535" rx="18" ry="44" fill="#2f8a73"/>
+  <ellipse cx="1055" cy="520" rx="16" ry="38" fill="#154d40"/>
+  <!-- person left (company) -->
+  <circle cx="640" cy="330" r="58" fill="#f0c9a4"/>
+  <path d="M600 310 Q640 250 680 310 Z" fill="#22262a"/>
+  <path d="M560 620 L575 420 Q640 390 705 420 L720 620 Z" fill="#1f6f5c"/>
+  <path d="M705 440 L800 530 L780 560 L690 490 Z" fill="#1f6f5c"/>
+  <circle cx="795" cy="545" r="24" fill="#f0c9a4"/>
+  <!-- person right (city) -->
+  <circle cx="960" cy="330" r="58" fill="#e8bd96"/>
+  <path d="M920 320 Q960 260 1000 320 Q960 290 920 320 Z" fill="#4a3b32"/>
+  <path d="M880 620 L895 420 Q960 390 1025 420 L1040 620 Z" fill="#3c5a8a"/>
+  <path d="M895 440 L800 530 L820 560 L910 490 Z" fill="#3c5a8a"/>
+  <circle cx="805" cy="545" r="24" fill="#e8bd96"/>
+</svg>
