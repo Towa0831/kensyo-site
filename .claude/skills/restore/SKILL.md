@@ -13,7 +13,7 @@ CLAUDE.md の「提案 → OK → 保存 の流れ」に沿って進める。**�
 
 ```
 git fetch --tags origin
-git log --date=format-local:'%Y-%m-%d %H:%M' --pretty='%h %ad %s' -- content site.yml images templates
+git log --date=format-local:'%Y-%m-%d %H:%M' --pretty='%h %ad %s' -- content site.yml images templates assets
 git tag -l 'release-*' --sort=-creatordate
 ```
 
@@ -37,7 +37,7 @@ Issueの内容から戻す対象と時点を判断し、候補を表にして見
 ## 3. 戻す（OKが出たとき）
 
 - **記事ひとつ**：`git restore --source=<戻す先> -- content/news/ファイル名.md`
-- **サイト全体**：`git restore --source=<戻す先> -- content site.yml images templates`
+- **サイト全体**：`git restore --source=<戻す先> -- content site.yml images templates assets`
   - 戻す先の時点より後に追加された記事は、ファイルを消さずに `status: 非公開` にする
 - **非公開にした記事を復活**：`status` を「公開」に戻すだけでよい
 
